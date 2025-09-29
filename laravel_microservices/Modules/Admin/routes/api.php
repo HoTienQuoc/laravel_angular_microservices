@@ -1,11 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Admin\Http\Controllers\AdminController;
 use Modules\Admin\Http\Controllers\UserController;
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('admins', AdminController::class)->names('admin');
-});
 
-Route::get("/",[UserController::class,'index']);
+
+// Route::get("/users",[UserController::class,'index']);
+// Route::get("/users/{id}",[UserController::class,'show']);
+// Route::post("/users",[UserController::class,'store']);
+// Route::put("/users/{id}",[UserController::class,'update']);
+// Route::delete("/users/{id}",[UserController::class,'destroy']);
+
+Route::apiResource("users",UserController::class);
