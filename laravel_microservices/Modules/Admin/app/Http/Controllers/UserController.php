@@ -10,19 +10,22 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Modules\Admin\Http\Requests\UserCreateRequest;
 use Modules\Admin\Http\Requests\UserUpdateRequest;
+use Modules\Admin\Http\Resources\UserResource;
 
 class UserController extends Controller{
     public function index(){
         // return User::all();
-        return User::paginate();
+        return User::with('role')->paginate();
     }
 
     public function show($id){
-        return User::find($id);
+        $user = User::find($id);
+        return new UserResource($user);
     }
 
     public function store(UserCreateRequest $request){
-        $user = User::create($request->only('first_name','last_name','email')+[
+        $user = User::create(
+            $request->only('first_name','last_name','email','role_id')+[
             "password"=>Hash::make(1234)
         ]);
         return response($user, Response::HTTP_CREATED);
@@ -30,7 +33,7 @@ class UserController extends Controller{
 
     public function update(UserUpdateRequest $request, $id){
         $user = User::find($id);
-        $user->update($request->only('first_name','last_name','email'));
+        $user->update($request->only('first_name','last_name','email','role_id'));
         return response($user, Response::HTTP_ACCEPTED);
     }
 

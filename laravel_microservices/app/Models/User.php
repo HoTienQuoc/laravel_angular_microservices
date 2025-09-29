@@ -24,4 +24,10 @@ class User extends Authenticatable implements OAuthenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
+
+
 }

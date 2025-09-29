@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        Passport::loadKeysFrom(base_path('secrets/oauth'));
         Passport::tokensExpireIn(CarbonInterval::days(1));
         Passport::refreshTokensExpireIn(CarbonInterval::days(1));
         Passport::personalAccessTokensExpireIn(CarbonInterval::months(1));
