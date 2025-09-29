@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Modules\Admin\Http\Requests\UserCreateRequest;
 use Modules\Admin\Http\Requests\UserUpdateRequest;
@@ -37,4 +38,23 @@ class UserController extends Controller{
         User::destroy($id);
         return response(null, Response::HTTP_NO_CONTENT);
     }
+
+    public function user(){
+        return Auth::user();
+    }
+
+    public function updateInfo(Request $request){
+        $user = Auth::user();
+        $user->update($request->only('first_name','last_name','email'));
+        return response($user,Response::HTTP_ACCEPTED);
+    }
+
+    public function updatePassword(Request $request){
+        $user = Auth::user();
+        $user->update([
+            "password"=>Hash::make($request->input('password'))
+        ]);
+        return response($user,Response::HTTP_ACCEPTED);
+    }
+
 }
