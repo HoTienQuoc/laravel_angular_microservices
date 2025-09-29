@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Admin\Http\Controllers\AuthController;
 use Modules\Admin\Http\Controllers\UserController;
 
 
@@ -12,3 +13,5 @@ use Modules\Admin\Http\Controllers\UserController;
 // Route::delete("/users/{id}",[UserController::class,'destroy']);
 
 Route::apiResource("users",UserController::class);
+
+Route::post('/login',[AuthController::class,"login"]);

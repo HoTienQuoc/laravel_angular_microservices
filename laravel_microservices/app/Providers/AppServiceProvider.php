@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use Laravel\Passport\Passport;
 use Illuminate\Support\ServiceProvider;
+use Carbon\CarbonInterval;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,5 +23,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        Passport::loadKeysFrom(__DIR__.'/../secrets/oauth');
+        Passport::tokensExpireIn(CarbonInterval::days(1));
+        Passport::refreshTokensExpireIn(CarbonInterval::days(1));
+        Passport::personalAccessTokensExpireIn(CarbonInterval::months(1));
     }
 }
