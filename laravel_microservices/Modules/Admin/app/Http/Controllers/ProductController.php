@@ -3,9 +3,11 @@
 namespace Modules\Admin\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Modules\Admin\Http\Resources\ProductResource;
 
 class ProductController extends Controller
@@ -24,9 +26,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
-        return response()->json([]);
+        $file = $request->file('image');
+        $name = Str::random(10);
+        $url = Storage::putFileAs('images',$file,$name.".".$file->extension());
+        $product = Product::create([
+            "title"=>$request->input('title'),
+            'description'=>$request->input('description'),
+            'image'=>$url,
+            'price'=>$request->input('price')
+        ]);
+        return response($product, Response::HTTP_CREATED);
     }
 
     /**
