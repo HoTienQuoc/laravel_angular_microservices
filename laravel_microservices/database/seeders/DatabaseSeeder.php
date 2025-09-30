@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(20)->create();
+        // User::factory(20)->create();
 
         // Role::insert([
         //     ['name' => 'Admin'],
@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
         //     ['name' => 'Viewer'],
         // ]);
 
-
+        $this->call([
+            ProductSeeder::class
+        ]);
 
     }
 }

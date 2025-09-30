@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Admin\Http\Controllers\AuthController;
+use Modules\Admin\Http\Controllers\ProductController;
 use Modules\Admin\Http\Controllers\RoleController;
 use Modules\Admin\Http\Controllers\UserController;
 
@@ -24,4 +25,6 @@ Route::group(['middleware'=>'auth:api'], function (){
     Route::put('user/password',[UserController::class,'updatePassword']);
     Route::apiResource("users",UserController::class);
     Route::apiResource('roles', RoleController::class);
+    Route::apiResource('products', ProductController::class);
+
 });
