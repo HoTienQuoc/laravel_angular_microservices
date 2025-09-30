@@ -32,7 +32,7 @@ class ProductController extends Controller
         $product = Product::create([
             "title"=>$request->input('title'),
             'description'=>$request->input('description'),
-            'image'=>$url,
+            'image'=>env("APP_URL")."/".$url,
             'price'=>$request->input('price')
         ]);
         return response($product, Response::HTTP_CREATED);
