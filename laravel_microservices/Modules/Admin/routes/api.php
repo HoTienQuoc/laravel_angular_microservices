@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Admin\Http\Controllers\AuthController;
+use Modules\Admin\Http\Controllers\ImageController;
 use Modules\Admin\Http\Controllers\ProductController;
 use Modules\Admin\Http\Controllers\RoleController;
 use Modules\Admin\Http\Controllers\UserController;
@@ -23,6 +24,7 @@ Route::group(['middleware'=>'auth:api'], function (){
     Route::get('user',[UserController::class,'user']);
     Route::put('user/info',[UserController::class,'updateInfo']);
     Route::put('user/password',[UserController::class,'updatePassword']);
+    Route::post('upload',[ImageController::class,'upload']);
     Route::apiResource("users",UserController::class);
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('products', ProductController::class);
